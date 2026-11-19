@@ -1,0 +1,23 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Install DOSBox-X and NASM
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y dosbox-x nasm
+
+      - name: Build
+        run: make
+
+      - name: Test
+        run: make test
